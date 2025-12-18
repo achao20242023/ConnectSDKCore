@@ -59,7 +59,8 @@ Pod::Spec.new do |s|
       'Helpers/**/*.h',
       'Services/**/*.h',
       'Frameworks/GCDWebServer/**/*.h',
-      'Frameworks/SocketRocket/LGSRWebSocket.h'
+      'Frameworks/SocketRocket/LGSRWebSocket.h',
+      'Frameworks/xswi/XMLWriter.h'
     ]
 
     sp.private_header_files = [
