@@ -23,8 +23,6 @@
 #import "DiscoveryProviderDelegate.h"
 #import "DiscoveryProvider.h"
 
-#import "ConnectSDKDefaultPlatforms.h"
-
 #import "DLNAService.h"
 #import "NetcastTVService.h"
 
@@ -142,12 +140,25 @@
 
 - (void) registerDefaultServices
 {
-    NSDictionary *defaultPlatforms = kConnectSDKDefaultPlatforms;
-    
-    [defaultPlatforms enumerateKeysAndObjectsUsingBlock:^(NSString *platformClassName, NSString *discoveryProviderClassName, BOOL *stop) {
+    // Default mapping between device service classes and discovery providers.
+    // Cast services are not included in this core SDK target.
+    NSDictionary *defaultPlatforms = @{
+        // AirPlay devices are discovered via Bonjour / ZeroConf.
+        @"AirPlayService"    : @"ZeroConfDiscoveryProvider",
+        // SSDP-discovered services.
+        @"DIALService"       : @"SSDPDiscoveryProvider",
+        @"DLNAService"       : @"SSDPDiscoveryProvider",
+        @"NetcastTVService"  : @"SSDPDiscoveryProvider",
+        @"RokuService"       : @"SSDPDiscoveryProvider",
+        @"WebOSTVService"    : @"SSDPDiscoveryProvider",
+    };
+
+    [defaultPlatforms enumerateKeysAndObjectsUsingBlock:^(NSString *platformClassName,
+                                                          NSString *discoveryProviderClassName,
+                                                          BOOL *stop) {
         Class platformClass = NSClassFromString(platformClassName);
         Class discoveryProviderClass = NSClassFromString(discoveryProviderClassName);
-        
+
         [self registerDeviceService:platformClass withDiscovery:discoveryProviderClass];
     }];
 }
