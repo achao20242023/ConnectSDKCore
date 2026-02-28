@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'Apache 2.0', :file => 'LICENSE' }
   s.author       = { 'LG Electronics' => 'connectsdk@lge.com' }
 
-  s.source       = { :git => 'https://github.com/appnexus163/ConnectCoreSDK.git',
+  s.source       = { :git => 'https://github.com/achao20242023/ConnectSDKCore.git',
                      :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
